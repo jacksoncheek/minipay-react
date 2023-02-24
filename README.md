@@ -10,6 +10,9 @@
 npm install --save minipay-react
 ```
 
+## Demo
+![Demo](demo.png)
+
 ## Quick Start Guide
 
 ### 1. Initial setup
