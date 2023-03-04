@@ -70,7 +70,7 @@ class MinipayDemo extends React.Component {
                         onSuccess={(data) => {
                             this.setState({
                                 state: MinipayDemoState.Complete,
-                                isUserAuthorized: data.successful
+                                isUserAuthorized: data.authorized
                             })
                         }}
                         onFailure={(error) => {

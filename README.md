@@ -106,7 +106,7 @@ class ExamplePostUsageEvent extends Component {
                 apiKey='<your-api-key>'
                 onSuccess={(data) => {
                     // Whether to allow or reject access to your services
-                    console.log(data.successful)
+                    console.log(data.authorized)
                 }}
                 onFailure={(error) => {
                     console.log(error)
