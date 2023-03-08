@@ -138,9 +138,9 @@ function App() {
             }}
         >
             <MinipayDemo
-                customUserId='mrconsumer'
-                planId='acdaffe199af485092b8e52345b695b8'
-                apiKey='eyJzYWx0IjoiNTc4YTIwNTgwYjMyNGJiZTkxNTQ4NTBiOTExYTA2ZmQiLCJ0b2tlbl9zY29wZSI6IkFQSV9LRVkiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1ZTUzNWZkMTUyOTQ0MzU2YmY5ZTg4MmJiOTcwNDNmOCIsImF1ZCI6InByb2R1Y3Rpb24ifQ.WP2L2nWXK1OzVLFErMgR8-nekDGC_ljt5G_HVbpFiyRL-Yi4h-Yr6lzA0z2Ys3nRT2Wux5Kij3bFStHMoIyzyQ'
+                customUserId='<your-custom-user-id>'
+                planId='<your-plan-id>'
+                apiKey='<your-api-key>'
             />
         </div>
     )
