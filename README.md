@@ -11,7 +11,7 @@ npm install --save minipay-react
 ```
 
 ## Demo
-![Demo](demo.png)
+<img src="demo.gif" width="250">
 
 ## Quick Start Guide
 
@@ -77,7 +77,7 @@ class ExampleAppAuthorization extends Component {
                 minipayToken='<token-from-state>'
                 onSuccess={(data) => {
                     // Whether or not the app auth was successful
-                    console.log(data.successful)
+                    console.log(data.response.successful)
                 }}
                 onFailure={(error) => {
                     console.log(error)
@@ -106,7 +106,7 @@ class ExamplePostUsageEvent extends Component {
                 apiKey='<your-api-key>'
                 onSuccess={(data) => {
                     // Whether to allow or reject access to your services
-                    console.log(data.authorized)
+                    console.log(data.response.authorized)
                 }}
                 onFailure={(error) => {
                     console.log(error)

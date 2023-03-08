@@ -6,13 +6,6 @@ import {
 } from 'minipay-react'
 import 'minipay-react/dist/index.css'
 
-const MinipayDemoState = {
-    Login: 'Login',
-    AuthorizeApp: 'AuthorizeApp',
-    PostUsageEvent: 'PostUsageEvent',
-    Complete: 'Complete'
-}
-
 class MinipayDemo extends React.Component {
     constructor(props) {
         super(props)
@@ -21,69 +14,117 @@ class MinipayDemo extends React.Component {
         this.apiKey = props.apiKey || ''
 
         this.state = {
-            state: MinipayDemoState.Login,
-            token: '',
-            isAppAuthorized: false,
-            isUserAuthorized: false
+            minipayToken: '',
+            authorizeAppResult: '',
+            postUsageEventResult: '',
+            error: '',
+            isLoginFlowEnabled: false,
+            isAppAuthorizing: false,
+            isUsageEventPosting: false
         }
     }
 
+    isAuthorizeAppFlowEnabled() {
+        return this.state.minipayToken.length > 0
+    }
+
+    isPostUsageEventFlowEnabled() {
+        return this.state.minipayToken.length > 0
+    }
+
     render() {
-        switch (this.state.state) {
-            case MinipayDemoState.Login:
-                return (
+        return (
+            <ul style={{ display: 'grid', gap: '8px' }}>
+                <button
+                    type='button'
+                    onClick={() => {
+                        this.setState({ isLoginFlowEnabled: true })
+                    }}
+                >
+                    Start Login Flow
+                </button>
+                {this.state.isLoginFlowEnabled ? (
                     <MinipayLogin
                         onSuccess={(data) => {
                             this.setState({
-                                state: MinipayDemoState.AuthorizeApp,
-                                token: data.token
+                                minipayToken: data.token
                             })
                         }}
                         onFailure={(error) => {
-                            console.log(error)
+                            this.setState({
+                                error: error
+                            })
                         }}
                     />
-                )
-            case MinipayDemoState.AuthorizeApp:
-                return (
+                ) : null}
+                <p style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                    {this.state.minipayToken}
+                </p>
+                <button
+                    type='button'
+                    disabled={!this.isAuthorizeAppFlowEnabled()}
+                    onClick={() => {
+                        this.setState({ isAppAuthorizing: true })
+                    }}
+                >
+                    Start Authorize App Flow
+                </button>
+                {this.state.isAppAuthorizing ? (
                     <MinipayAuthorizeApp
                         customUserId={this.customUserId}
                         planId={this.planId}
-                        minipayToken={this.state.token}
+                        minipayToken={this.state.minipayToken}
                         onSuccess={(data) => {
                             this.setState({
-                                state: MinipayDemoState.PostUsageEvent,
-                                isAppAuthorized: data.successful
+                                isAppAuthorizing: false,
+                                authorizeAppResult: data.response.successful
+                                    ? 'App Authorized'
+                                    : 'App Auth Failed'
                             })
                         }}
                         onFailure={(error) => {
-                            console.log(error)
+                            this.setState({
+                                isAppAuthorizing: false,
+                                error: error
+                            })
                         }}
                     />
-                )
-            case MinipayDemoState.PostUsageEvent:
-                return (
+                ) : null}
+                <p>{this.state.authorizeAppResult}</p>
+                <button
+                    type='button'
+                    disabled={!this.isPostUsageEventFlowEnabled()}
+                    onClick={() => {
+                        this.setState({ isUsageEventPosting: true })
+                    }}
+                >
+                    Post Usage Event
+                </button>
+                {this.state.isUsageEventPosting ? (
                     <MinipayPostUsageEvent
                         customUserId={this.customUserId}
                         planId={this.planId}
                         apiKey={this.apiKey}
                         onSuccess={(data) => {
                             this.setState({
-                                state: MinipayDemoState.Complete,
-                                isUserAuthorized: data.authorized
+                                isUsageEventPosting: false,
+                                postUsageEventResult: data.response.authorized
+                                    ? 'Access Authorized'
+                                    : 'Access Denied'
                             })
                         }}
                         onFailure={(error) => {
-                            console.log(error)
+                            this.setState({
+                                isUsageEventPosting: false,
+                                error: error
+                            })
                         }}
                     />
-                )
-            case MinipayDemoState.Complete:
-                console.log(this.state)
-                return <label>Complete</label>
-            default:
-                return <label>Default</label>
-        }
+                ) : null}
+                <p>{this.state.postUsageEventResult}</p>
+                <p style={{ color: 'red' }}>{this.state.error}</p>
+            </ul>
+        )
     }
 }
 
@@ -97,9 +138,9 @@ function App() {
             }}
         >
             <MinipayDemo
-                customUserId='<your-custom-user-id>'
-                planId='<your-plan-id>'
-                apiKey='<your-api-key>'
+                customUserId='mrconsumer'
+                planId='acdaffe199af485092b8e52345b695b8'
+                apiKey='eyJzYWx0IjoiNTc4YTIwNTgwYjMyNGJiZTkxNTQ4NTBiOTExYTA2ZmQiLCJ0b2tlbl9zY29wZSI6IkFQSV9LRVkiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1ZTUzNWZkMTUyOTQ0MzU2YmY5ZTg4MmJiOTcwNDNmOCIsImF1ZCI6InByb2R1Y3Rpb24ifQ.WP2L2nWXK1OzVLFErMgR8-nekDGC_ljt5G_HVbpFiyRL-Yi4h-Yr6lzA0z2Ys3nRT2Wux5Kij3bFStHMoIyzyQ'
             />
         </div>
     )
