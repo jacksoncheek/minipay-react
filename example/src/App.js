@@ -4,7 +4,6 @@ import {
     MinipayAuthorizeApp,
     MinipayPostUsageEvent
 } from 'minipay-react'
-import 'minipay-react/dist/index.css'
 
 class MinipayDemo extends React.Component {
     constructor(props) {
