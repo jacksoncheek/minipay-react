@@ -5,10 +5,10 @@ import { LoginRequest } from '../model/request/LoginRequest.js'
 import { post, send } from '../service/NetworkService.js'
 
 export class RealMinipayService {
-    async login({ email, password, onSuccess, onFailure }) {
+    async login({ email, password, testModeEnabled, onSuccess, onFailure }) {
         let credentials = new Credentials(email, password)
         let request = new LoginRequest(credentials)
-        await send('/security/login', post, request)
+        await send('/security/login', post, request, testModeEnabled)
             .then((data) => {
                 onSuccess(data)
             })
@@ -17,13 +17,20 @@ export class RealMinipayService {
             })
     }
 
-    async addApp({ customUserId, planId, minipayToken, onSuccess, onFailure }) {
+    async addApp({
+        customUserId,
+        planId,
+        minipayToken,
+        testModeEnabled,
+        onSuccess,
+        onFailure
+    }) {
         let request = new AuthorizedAppAddRequest(
             customUserId,
             planId,
             minipayToken
         )
-        await send('/apps/add', post, request)
+        await send('/apps/add', post, request, testModeEnabled)
             .then((data) => {
                 onSuccess(data)
             })
@@ -36,6 +43,7 @@ export class RealMinipayService {
         customUserId,
         planId,
         apiKey,
+        testModeEnabled,
         onSuccess,
         onFailure
     }) {
@@ -43,7 +51,9 @@ export class RealMinipayService {
             customUserId,
             planId
         )
-        await send('/apps/usage', post, request, { 'X-API-Key': apiKey })
+        await send('/apps/usage', post, request, testModeEnabled, {
+            'X-API-Key': apiKey
+        })
             .then((data) => {
                 onSuccess(data)
             })
@@ -54,11 +64,18 @@ export class RealMinipayService {
 }
 
 export class FakeMinipayService {
-    async login({ email, password, onSuccess, onFailure }) {
+    async login({ email, password, testModeEnabled, onSuccess, onFailure }) {
         onSuccess('login')
     }
 
-    async addApp({ customUserId, planId, minipayToken, onSuccess, onFailure }) {
+    async addApp({
+        customUserId,
+        planId,
+        minipayToken,
+        testModeEnabled,
+        onSuccess,
+        onFailure
+    }) {
         onSuccess('addApp')
     }
 
@@ -66,6 +83,7 @@ export class FakeMinipayService {
         customUserId,
         planId,
         apiKey,
+        testModeEnabled,
         onSuccess,
         onFailure
     }) {

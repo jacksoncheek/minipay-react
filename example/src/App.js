@@ -11,6 +11,7 @@ class MinipayDemo extends React.Component {
         this.customUserId = props.customUserId || ''
         this.planId = props.planId || ''
         this.apiKey = props.apiKey || ''
+        this.testModeEnabled = props.testModeEnabled || false
 
         this.state = {
             minipayToken: '',
@@ -44,6 +45,7 @@ class MinipayDemo extends React.Component {
                 </button>
                 {this.state.isLoginFlowEnabled ? (
                     <MinipayLogin
+                        testModeEnabled={this.testModeEnabled}
                         onSuccess={(data) => {
                             this.setState({
                                 minipayToken: data.token
@@ -73,6 +75,7 @@ class MinipayDemo extends React.Component {
                         customUserId={this.customUserId}
                         planId={this.planId}
                         minipayToken={this.state.minipayToken}
+                        testModeEnabled={this.testModeEnabled}
                         onSuccess={(data) => {
                             this.setState({
                                 isAppAuthorizing: false,
@@ -104,6 +107,7 @@ class MinipayDemo extends React.Component {
                         customUserId={this.customUserId}
                         planId={this.planId}
                         apiKey={this.apiKey}
+                        testModeEnabled={this.testModeEnabled}
                         onSuccess={(data) => {
                             this.setState({
                                 isUsageEventPosting: false,
@@ -140,6 +144,7 @@ function App() {
                 customUserId='<your-custom-user-id>'
                 planId='<your-plan-id>'
                 apiKey='<your-api-key>'
+                testModeEnabled={true}
             />
         </div>
     )

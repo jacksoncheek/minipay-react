@@ -72,6 +72,7 @@ theme = responsiveFontSizes(theme)
 
 function LoginForm(props) {
     let _service = props.service
+    let _testModeEnabled = props.testModeEnabled
     let _onSuccess = props.onSuccess
     let _onFailure = props.onFailure
 
@@ -87,6 +88,7 @@ function LoginForm(props) {
         _service.login({
             email: email,
             password: password,
+            testModeEnabled: _testModeEnabled,
             onSuccess: (data) => {
                 setIsLoading(false)
                 setIsError(false)
@@ -262,6 +264,7 @@ export class MinipayLogin extends React.Component {
     constructor(props) {
         super(props)
         this.service = new RealMinipayService()
+        this.testModeEnabled = props.testModeEnabled || false
         this.onSuccess =
             props.onSuccess ||
             function (data) {
@@ -279,6 +282,7 @@ export class MinipayLogin extends React.Component {
             <ThemeProvider theme={theme}>
                 <LoginForm
                     service={this.service}
+                    testModeEnabled={this.testModeEnabled}
                     onSuccess={this.onSuccess}
                     onFailure={this.onFailure}
                 />
@@ -293,6 +297,7 @@ export class MinipayAuthorizeApp extends React.Component {
         this.customUserId = props.customUserId || ''
         this.planId = props.planId || ''
         this.minipayToken = props.minipayToken || ''
+        this.testModeEnabled = props.testModeEnabled || false
 
         this.state = { token: this.minipayToken }
 
@@ -312,6 +317,7 @@ export class MinipayAuthorizeApp extends React.Component {
             customUserId: this.customUserId,
             planId: this.planId,
             minipayToken: this.state.token,
+            testModeEnabled: this.testModeEnabled,
             onSuccess: this.onSuccess,
             onFailure: this.onFailure
         })
@@ -328,6 +334,7 @@ export class MinipayPostUsageEvent extends React.Component {
         this.customUserId = props.customUserId || ''
         this.planId = props.planId || ''
         this.apiKey = props.apiKey || ''
+        this.testModeEnabled = props.testModeEnabled || false
 
         this.state = {}
 
@@ -347,6 +354,7 @@ export class MinipayPostUsageEvent extends React.Component {
             customUserId: this.customUserId,
             planId: this.planId,
             apiKey: this.apiKey,
+            testModeEnabled: this.testModeEnabled,
             onSuccess: this.onSuccess,
             onFailure: this.onFailure
         })

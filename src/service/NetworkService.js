@@ -1,4 +1,5 @@
 const host = 'https://api.minipayhq.com'
+const testHost = 'https://staging.minipayhq.com'
 const apiVersion = '/api/v1'
 
 export const get = 'GET'
@@ -10,6 +11,7 @@ export async function send(
     path,
     method,
     body,
+    testModeEnabled,
     optionalHeaders = {},
     queryParameters = {}
 ) {
@@ -38,7 +40,9 @@ export async function send(
         path += encodeQueryString(queryParameters)
     }
 
-    return fetch(`${host}${apiVersion}${path}`, config)
+    var _host = testModeEnabled === true ? testHost : host
+
+    return fetch(`${_host}${apiVersion}${path}`, config)
         .then(async (response) => {
             if (response.ok) {
                 return await response.json()

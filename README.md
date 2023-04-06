@@ -1,6 +1,6 @@
 # minipay-react
 
-> 
+>
 
 [![NPM](https://img.shields.io/npm/v/minipay-react.svg)](https://www.npmjs.com/package/minipay-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -11,7 +11,14 @@ npm install --save minipay-react
 ```
 
 ## Demo
+
 <img src="demo.gif" width="250">
+
+## Test Mode
+
+In order to test your integration, Minipay provides a completely separate testing mode. This is a testing environment that simulates creating real objects without the risk of affecting real transactions or moving actual money.
+
+Test mode accounts are entirely separate from production accounts, so you'll need to create a test account the same way you created a production account. We recommend using test mode to build the integration and replace your test keys with live keys when you’re ready to go live.
 
 ## Quick Start Guide
 
@@ -40,10 +47,10 @@ import React, { Component } from 'react'
 import { MinipayLogin } from 'minipay-react'
 
 class ExampleLogin extends Component {
-
     render() {
         return (
             <MinipayLogin
+                testModeEnabled={true} // Or false (for production environment)
                 onSuccess={(data) => {
                     // Save this token to state
                     console.log(data.token)
@@ -68,13 +75,13 @@ import React, { Component } from 'react'
 import { MinipayAuthorizeApp } from 'minipay-react'
 
 class ExampleAppAuthorization extends Component {
-
     render() {
         return (
             <MinipayAuthorizeApp
                 customUserId='<your-custom-user-id>'
                 planId='<your-plan-id>'
                 minipayToken='<token-from-state>'
+                testModeEnabled={true} // Or false (for production environment)
                 onSuccess={(data) => {
                     // Whether or not the app auth was successful
                     console.log(data.response.successful)
@@ -97,13 +104,13 @@ import React, { Component } from 'react'
 import { MinipayPostUsageEvent } from 'minipay-react'
 
 class ExamplePostUsageEvent extends Component {
-
     render() {
         return (
             <MinipayPostUsageEvent
                 customUserId='<your-custom-user-id>'
                 planId='<your-plan-id>'
                 apiKey='<your-api-key>'
+                testModeEnabled={true} // Or false (for production environment)
                 onSuccess={(data) => {
                     // Whether to allow or reject access to your services
                     console.log(data.response.authorized)

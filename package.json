@@ -1,46 +1,46 @@
 {
-  "name": "minipay-react",
-  "version": "1.0.0",
-  "description": "React package for Minipay",
-  "author": "jacksoncheek",
-  "license": "MIT",
-  "repository": "jacksoncheek/minipay-react",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "source": "src/index.js",
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs",
-    "lint": "eslint .",
-    "test": "cd example && npm install && npm run test",
-    "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
-  },
-  "peerDependencies": {
-    "react": "^17.0.2 || ^18.0.0"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3",
-    "css-loader": "^6.7.3",
-    "eslint": "^8.34.0",
-    "gh-pages": "^5.0.0",
-    "microbundle-crl": "^0.13.11",
-    "prettier": "^2.8.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^5.0.1",
-    "rollup-plugin-import-css": "^3.1.0",
-    "style-loader": "^3.3.1"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@mui/material": "^5.11.10"
-  },
-  "files": [
-    "dist"
-  ]
+    "name": "minipay-react",
+    "version": "1.0.2",
+    "description": "React package for Minipay",
+    "author": "jacksoncheek",
+    "license": "MIT",
+    "repository": "jacksoncheek/minipay-react",
+    "main": "dist/index.js",
+    "module": "dist/index.modern.js",
+    "source": "src/index.js",
+    "engines": {
+        "node": ">=10"
+    },
+    "scripts": {
+        "build": "microbundle-crl --no-compress --format modern,cjs",
+        "start": "microbundle-crl watch --no-compress --format modern,cjs",
+        "lint": "eslint .",
+        "test": "cd example && npm install && npm run test",
+        "predeploy": "cd example && npm install && npm run build",
+        "deploy": "gh-pages -d example/build"
+    },
+    "peerDependencies": {
+        "react": "^17.0.2 || ^18.0.0"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.3",
+        "eslint": "^8.34.0",
+        "gh-pages": "^5.0.0",
+        "microbundle-crl": "^0.13.11",
+        "prettier": "^2.8.4",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-scripts": "^5.0.1",
+        "rollup-plugin-import-css": "^3.1.0",
+        "style-loader": "^3.3.1"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@mui/material": "^5.11.10"
+    },
+    "files": [
+        "dist"
+    ]
 }
